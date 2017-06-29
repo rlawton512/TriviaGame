@@ -1,0 +1,19 @@
+body {
+
+	background-image: url("../images/alien2.jpeg");
+	/*background-size: cover;*/
+
+}
+
+#game{
+	border-style: 5px, solid;
+	background-color: white;
+	width: 80%;
+	margin-left: 150px;
+	padding: 50px;
+	margin-top: 20px;
+}
+
+h1{
+	text-align: center;
+}
