@@ -1,21 +1,27 @@
 $(document).ready(function(){
 
   $("#done-button").hide();
+
   $("#start-button").click(function() {
-  $("#start-button").hide();
-  $("#done-button").show();
+    $("#start-button").hide();
+    $("#done-button").show();
+
+    
+              
+            
+          
+
+
+ //display questions
+  
+
 
 // create form 
 
 //create multiple choice questions; player can pick only one answer
 
-//create a timer
-
-var number = 120;
-var intervalId;
-
-var questions = {
-            questionsArray: [{
+function createQuestions() {
+var questionArray = [{
                 question: "1) What are the forerunners of humanity known as in Prometheus?",
                 choices: ["The Explorers","The Originators", "The Pioneers","The Engineers"],
                 correctAnswer: 'The Engineers'
@@ -40,9 +46,32 @@ var questions = {
                 choices: ["Location tracker","Motion sensor", "Pulse rifle","Incinerator unit"],
                 correctAnswer: 'Motion sensor'
               },
-              
-            ]
+          ]
+
+          for (var i = 0; i < questionArray.length; i++){
+            
+            $("#questions").append(questionArray[i].question + "<br>");
+            $("#questions").append("<label class = 'checkbox-inline'><input type='checkbox' value = ''>" + questionArray[i].choices[0] + "</label>"+"<br>"+"<br>");
+            $("#questions").append("<label class = 'checkbox-inline'><input type='checkbox' value = ''>" + questionArray[i].choices[1] + "</label>"+"<br>"+"<br>");
+            $("#questions").append("<input type='checkbox'>" + questionArray[i].choices[2] + "<br>"+"<br>");
+            $("#questions").append("<input type='checkbox'>" + questionArray[i].choices[3] + "<br>"+"<br>");
+            // questionArray[i].choices.change("<input type='checkbox'"  + "</label>" + "<br>"+"<br>");
+
           }
+          // console.log(questionArray[0].choices);
+      
+};
+createQuestions();
+
+//create a timer
+
+var number = 120;
+var intervalId;
+
+
+ 
+
+
     //  The run function sets an interval
     //  that runs the decrement function once a second.
     function run() {
