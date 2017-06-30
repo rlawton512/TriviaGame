@@ -24,41 +24,53 @@ function createQuestions() {
 var questionArray = [{
                 question: "1) What are the forerunners of humanity known as in Prometheus?",
                 choices: ["The Explorers","The Originators", "The Pioneers","The Engineers"],
-                correctAnswer: 'The Engineers'
+                answer: ['The Engineers']
               },
               {
                 question: "2) Where is Alien 3 set?",
                 choices: ["Castle","Mining rig", "Monastery","Prison"],
-                correctAnswer: 'Prison'
+                answer: ['Prison']
               },
               {
                 question: "3) What game does Ripley play with the space pirates in Alien Resurrection?",
                 choices: ["Knife throwing","Hockey", "Russian roulette","Basketball"],
-                correctAnswer: 'The Engineers'
+                answer: ['Basketball']
               },
               {
                 question: "4) What number clone was Ripley in Alien Resurrection?",
                 choices: ["9","10", "8","7"],
-                correctAnswer: '8'
+                answer: ['8']
               },
               {
                 question: "5) Which of these did Ripley NOT duct-tape togther to make her DIY super-weapon in Aliens?",
                 choices: ["Location tracker","Motion sensor", "Pulse rifle","Incinerator unit"],
-                correctAnswer: 'Motion sensor'
+                answer: ['Motion sensor']
               },
           ]
 
           for (var i = 0; i < questionArray.length; i++){
             
             $("#questions").append(questionArray[i].question + "<br>");
-            $("#questions").append("<label class = 'checkbox-inline'><input type='checkbox' value = ''>" + questionArray[i].choices[0] + "</label>"+"<br>"+"<br>");
-            $("#questions").append("<label class = 'checkbox-inline'><input type='checkbox' value = ''>" + questionArray[i].choices[1] + "</label>"+"<br>"+"<br>");
-            $("#questions").append("<input type='checkbox'>" + questionArray[i].choices[2] + "<br>"+"<br>");
-            $("#questions").append("<input type='checkbox'>" + questionArray[i].choices[3] + "<br>"+"<br>");
-            // questionArray[i].choices.change("<input type='checkbox'"  + "</label>" + "<br>"+"<br>");
-
+            $("#questions").append("<label class = 'checkbox-inline'><input type='checkbox' value = ''>" + questionArray[i].choices[0] + "</label>");
+            $("#questions").append("<label class = 'checkbox-inline'><input type='checkbox' value = ''>" + questionArray[i].choices[1] + "</label>");
+            $("#questions").append("<label class = 'checkbox-inline'><input type='checkbox' value = ''>" + questionArray[i].choices[2] + "</label>");
+            $("#questions").append("<label class = 'checkbox-inline'><input type='checkbox' value = ''>" + questionArray[i].choices[3] + "</label>"+"<br>"+"<br>");
+   
           }
-          // console.log(questionArray[0].choices);
+
+          $(".checkbox-inline").on("click", function()
+          {
+            // var correctAnswer;
+            // var wrongAnswer;
+            for (var i = 0; i < questionArray; i++){
+            if (this.checkbox === questionArray[i].answer[0]){
+                alert("That's right");
+            } else {
+                alert("That's wrong")
+            }
+            }
+          });
+        
       
 };
 createQuestions();
