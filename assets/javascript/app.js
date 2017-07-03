@@ -6,8 +6,53 @@ $(document).ready(function(){
     $("#start-button").hide();
     $("#done-button").show();
 
-    //create multiple choice questions; player can pick only one answer
+ 
 
+  //create a timer 
+    var number = 30;
+    var intervalId;
+
+    // create a function that sets an interval 
+    function run() {
+      intervalId = setInterval(decrement, 1000);
+    }
+
+    //create function that decrements once a second.
+    function decrement() {
+
+      //  Decrease number by one.
+      number--;
+
+      //  Show the number in the #show-number tag.
+      $("#timer").html("<h2> Time Remaining:  " + number + "</h2>");
+
+      //  Once number hits zero...
+      if (number === 0) {
+
+      //  ...run the stop function.
+        stop();
+
+      //  Alert the user how many questions were answered
+      $("#timer").hide();
+      $("#done-button").hide();
+      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "<p>Correct Answers: </p>" + "<br>" + "Incorrect Answers: ")
+      }
+    }
+
+    $("#done-button").click(function() {
+      clearInterval(intervalId);
+      $("#done-button").hide();
+      $("#timer").hide();
+      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "<p>Correct Answers: </p>" + "<br>" + "Incorrect Answers: ")
+
+
+    })
+
+    //  Execute the run function.
+    run();
+
+  
+  //create multiple choice questions; player can pick only one answer
 
     var questionArray = [{
                 question: "1) What are the forerunners of humanity known as in Prometheus?",
@@ -36,90 +81,47 @@ $(document).ready(function(){
               },
           ]
 
+      
       function createQuestions() {
 
           for (var i = 0; i < questionArray.length; i++){
             
             $("#questions").append(questionArray[i].question + "<br>");
-            $("#questions").append("<label class = 'checkbox-inline'><input id = 'checkbox-value' type='checkbox' value = ''>" + questionArray[i].choices[0] + "</label>");
-            $("#questions").append("<label class = 'checkbox-inline'><input id = 'checkbox-value' type='checkbox' value = ''>" + questionArray[i].choices[1] + "</label>");
-            $("#questions").append("<label class = 'checkbox-inline'><input id = 'checkbox-value' type='checkbox' value = ''>" + questionArray[i].choices[2] + "</label>");
-            $("#questions").append("<label class = 'checkbox-inline'><input id = 'checkbox-value' type='checkbox' value = ''>" + questionArray[i].choices[3] + "</label>"+"<br>"+"<br>");
+            $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[0] + "</label>");
+            $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[1] + "</label>");
+            $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[2] + "</label>");
+            $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[3] + "</label>"+"<br>"+"<br>");
    
-    
-              if ($(":checked").val() === questionArray[i].answer){
-                  console.log("check box selected");
-              } else {
-                  console.log("That's not correct");
-              }
           }
+          
+          //assign a click function to the check boxes 
+           $(".checkbox-inline").on("click", function(){
+
+          //capture correct and incorrect answers 
+          var correctAnswers = []
+          var wrongAnswers = []
+
+          //capture the click funtion value/property and see if it equals the answer
+            if($(this).is(':checked') === questionArray.answer) {
+
+          //push to the correct answers array 
+                console.log("That is correct");
+                $(this).push(correctAnswers)
+
+          //push to the incorrect answers array 
+                } else {
+                console.log("That's wrong")
+                $(this).push(wrongAnswers)
+              }
+            });
 
       }; 
       
       createQuestions();
       
-      
-//create a timer
-
-    var number = 60;
-    var intervalId;
-
-    //  The run function sets an interval
-    //  that runs the decrement function once a second.
-    function run() {
-      intervalId = setInterval(decrement, 1000);
-    }
-
-    //  The decrement function.
-    function decrement() {
-
-      //  Decrease number by one.
-      number--;
-
-      //  Show the number in the #show-number tag.
-      $("#timer").html("<h2> Time Remaining:" + number + "</h2>");
-
-
-      //  Once number hits zero...
-      if (number === 0) {
-
-        //  ...run the stop function.
-        stop();
-
-        //  Alert the user that time is up.
-        alert("Time Up!");
-      }
-    }
-
-    $("#done-button").click(function() {
-      clearInterval(intervalId);
-      $("#done-button").hide();
-      $("#timer").hide();
-      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "<p>Correct Answers: </p>" + "<br>" + "Incorrect Answers: ")
-
-
-    })
-
-    //  Execute the run function.
-    run();
-
-  });
+    
+   });
 
 }); 
-//
-    // $(".checkbox-inline").on("click", function(){
-    // // function answerKey(){
-    //       // data = $("input"),
-    //       answerArray = ["The Engineers", "Prison", "Basketball", "8", "Motion sensor"]
-            
-    //       for (var i = 0; i < answerArray; i++){
-    //         // if (data[i].checked) {
-    //             if (indexOf(answerArray[i].value) !== -1){
-    //             console.log("That's right");
-    //             } else {
-    //             console.log("That's wrong")
-    //           }
-    //         }
-    //       // }   
-    //    // answerKey();       
-    //     });
+
+   
