@@ -3,7 +3,7 @@ $(document).ready(function(){
   $("#done-button").hide();
 
   $("#start-button").click(function() {
-    $("#start-button").hide();
+    $("#start-button").remove();
     $("#done-button").show();
 
  
@@ -86,11 +86,18 @@ $(document).ready(function(){
 
           for (var i = 0; i < questionArray.length; i++){
             
-            $("#questions").append(questionArray[i].question + "<br>");
-            $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[0] + "</label>");
-            $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[1] + "</label>");
-            $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[2] + "</label>");
-            $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[3] + "</label>"+"<br>"+"<br>");
+            $("#questions").append("<h4>" + questionArray[i].question + "</h4>");
+
+              for(var j=0; j<questionArray[i].choices.length; j++){
+                        $("#questions").append("<input type = 'radio' name = 'question-"+i+"' value = ' " + questionArray[i].choices[j] + " '>  " + questionArray[i].choices[j]);
+                      }
+
+
+            //changed this based on solutions video 
+            // $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[0] + "</label>");
+            // $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[1] + "</label>");
+            // $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[2] + "</label>");
+            // $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[3] + "</label>"+"<br>"+"<br>");
    
           }
           
@@ -98,8 +105,8 @@ $(document).ready(function(){
            $(".checkbox-inline").on("click", function(){
 
           //capture correct and incorrect answers 
-          var correctAnswers = []
-          var wrongAnswers = []
+          var correctAnswers = 0
+          var wrongAnswers = 0
 
           //capture the click funtion value/property and see if it equals the answer
             if($(this).is(':checked') === questionArray.answer) {
@@ -115,6 +122,30 @@ $(document).ready(function(){
               }
             });
 
+           //code in solution video 
+           // done: function(){
+           //  $.each($('input[name= "question-0"]:checked'), function(){
+           //    if($(this).val()==questionArray[0].answer){
+           //      correctAnswer++;
+           //      console.log("Correct" + correctAnswer)
+           //    }else {
+           //      incorrectAnswer++
+           //      console.log("Incorrect" + incorrectAnswer)
+           //    }
+
+           //  })
+
+           //  $.each($("input[name= 'question-1']:checked"), function(){
+           //    if($(this).val()==questionArray[1].answer){
+           //      correctAnswer++;
+           //      console.log("Correct2" + correctAnswer)
+           //    }else {
+           //      incorrectAnswer++
+           //      console.log("Incorrect2" + incorrectAnswer)
+           //    }
+
+           //  })
+
       }; 
       
       createQuestions();
@@ -123,5 +154,3 @@ $(document).ready(function(){
    });
 
 }); 
-
-   
