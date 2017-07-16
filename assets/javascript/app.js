@@ -35,7 +35,7 @@ $(document).ready(function(){
       //  Alert the user how many questions were answered
       $("#timer").hide();
       $("#done-button").hide();
-      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "<p>Correct Answers: </p>" + "<br>" + "Incorrect Answers: ")
+      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "Correct Answers: " + correctAnswers + "Incorrect Answers: " + wrongAnswers)
       }
     }
 
@@ -43,7 +43,7 @@ $(document).ready(function(){
       clearInterval(intervalId);
       $("#done-button").hide();
       $("#timer").hide();
-      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "<p>Correct Answers: </p>" + "<br>" + "Incorrect Answers: ")
+      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "Correct Answers: " + correctAnswers + "<br>" + "Incorrect Answers: " + wrongAnswers)
 
 
     })
@@ -81,6 +81,10 @@ $(document).ready(function(){
               },
           ]
 
+          var correctAnswers = 0
+          var wrongAnswers = 0
+
+
       
       function createQuestions() {
 
@@ -105,9 +109,7 @@ $(document).ready(function(){
            $(".checkbox-inline").on("click", function(){
 
           //capture correct and incorrect answers 
-          var correctAnswers = 0
-          var wrongAnswers = 0
-
+          
           //capture the click funtion value/property and see if it equals the answer
             if($(this).is(':checked') === questionArray.answer) {
 
