@@ -9,7 +9,7 @@ $(document).ready(function(){
  
 
   //create a timer 
-    var number = 30;
+    var number = 45;
     var intervalId;
 
     // create a function that sets an interval 
@@ -23,37 +23,52 @@ $(document).ready(function(){
       //  Decrease number by one.
       number--;
 
-      //  Show the number in the #show-number tag.
+      //  Show the number in the #timer tag.
       $("#timer").html("<h2> Time Remaining:  " + number + "</h2>");
 
       //  Once number hits zero...
       if (number === 0) {
 
-      //  ...run the stop function.
-        stop();
 
       //  Alert the user how many questions were answered
       $("#timer").hide();
       $("#done-button").hide();
-      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "Correct Answers: " + correctAnswers + "Incorrect Answers: " + wrongAnswers)
-      }
+      answerCheck();
+      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "Correct Answers: " + correctAnswers + "<br>" + "<br>" + "Incorrect Answers: " + wrongAnswers)
+      }         
     }
 
-    $("#done-button").click(function() {
+function answerCheck(){
+
+        for(var i=0; i<questionArray.length; i++){
+
+        
+            var value = $('input[type=radio][name=question-'+i+']:checked').val();
+            // console.log(value);
+
+            if(value == questionArray[i].answer){
+              correctAnswers++
+            } else {
+              wrongAnswers++
+            }
+        }
+  }
+   $("#done-button").click(function() {
       clearInterval(intervalId);
+      answerCheck();
       $("#done-button").hide();
       $("#timer").hide();
-      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "Correct Answers: " + correctAnswers + "<br>" + "Incorrect Answers: " + wrongAnswers)
-
-
-    })
+      $("#questions").html("<h2> Thanks for playing!</h2>" + "<br>" + "Correct Answers: " + correctAnswers + "<br>" + "<br>" + "Incorrect Answers: " + wrongAnswers);
+    }) 
 
     //  Execute the run function.
     run();
 
   
-  //create multiple choice questions; player can pick only one answer
-
+    // variables for correct and incorrect answers
+    var correctAnswers = 0
+    var wrongAnswers = 0
+    //create multiple choice questions; player can pick only one answer
     var questionArray = [{
                 question: "1) What are the forerunners of humanity known as in Prometheus?",
                 choices: ["The Explorers","The Originators", "The Pioneers","The Engineers"],
@@ -80,12 +95,8 @@ $(document).ready(function(){
                 answer: 'Motion sensor'
               },
           ]
-
-          var correctAnswers = 0
-          var wrongAnswers = 0
-
-
-      
+          
+      //create questions and load them to document page
       function createQuestions() {
 
           for (var i = 0; i < questionArray.length; i++){
@@ -93,60 +104,9 @@ $(document).ready(function(){
             $("#questions").append("<h4>" + questionArray[i].question + "</h4>");
 
               for(var j=0; j<questionArray[i].choices.length; j++){
-                        $("#questions").append("<input type = 'radio' name = 'question-"+i+"' value = ' " + questionArray[i].choices[j] + " '>  " + questionArray[i].choices[j]);
+                        $("#questions").append("<input type = 'radio' name = 'question-"+i+"' value = '" + questionArray[i].choices[j] + "'>  " + questionArray[i].choices[j]);
                       }
-
-
-            //changed this based on solutions video 
-            // $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[0] + "</label>");
-            // $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[1] + "</label>");
-            // $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[2] + "</label>");
-            // $("#questions").append("<label class = 'checkbox-inline'><input id = 'selection-option' type='checkbox' value = ''>" + questionArray[i].choices[3] + "</label>"+"<br>"+"<br>");
-   
-          }
-          
-          //assign a click function to the check boxes 
-           $(".checkbox-inline").on("click", function(){
-
-          //capture correct and incorrect answers 
-          
-          //capture the click funtion value/property and see if it equals the answer
-            if($(this).is(':checked') === questionArray.answer) {
-
-          //push to the correct answers array 
-                console.log("That is correct");
-                $(this).push(correctAnswers)
-
-          //push to the incorrect answers array 
-                } else {
-                console.log("That's wrong")
-                $(this).push(wrongAnswers)
-              }
-            });
-
-           //code in solution video 
-           // done: function(){
-           //  $.each($('input[name= "question-0"]:checked'), function(){
-           //    if($(this).val()==questionArray[0].answer){
-           //      correctAnswer++;
-           //      console.log("Correct" + correctAnswer)
-           //    }else {
-           //      incorrectAnswer++
-           //      console.log("Incorrect" + incorrectAnswer)
-           //    }
-
-           //  })
-
-           //  $.each($("input[name= 'question-1']:checked"), function(){
-           //    if($(this).val()==questionArray[1].answer){
-           //      correctAnswer++;
-           //      console.log("Correct2" + correctAnswer)
-           //    }else {
-           //      incorrectAnswer++
-           //      console.log("Incorrect2" + incorrectAnswer)
-           //    }
-
-           //  })
+          }   
 
       }; 
       
